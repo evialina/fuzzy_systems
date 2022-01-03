@@ -1,0 +1,125 @@
+[System]
+Name='Home_Air_Filtration_System_FLC'
+Type='mamdani'
+Version=2.0
+NumInputs=6
+NumOutputs=4
+NumRules=17
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='temperature'
+Range=[0 30]
+NumMFs=4
+MF1='too_cold':'trapmf',[0 0 4 11]
+MF2='warm':'trapmf',[18 20 22 25]
+MF3='hot':'trapmf',[23 25 30 30]
+MF4='cold':'trapmf',[5 7 17 20]
+
+[Input2]
+Name='humidity'
+Range=[0 100]
+NumMFs=3
+MF1='low':'trapmf',[0 0 30 45]
+MF2='medium':'trapmf',[30 45 60 80]
+MF3='high':'trapmf',[60 75 100 100]
+
+[Input3]
+Name='pm2.5'
+Range=[0 300]
+NumMFs=6
+MF1='excellent':'trapmf',[0 0 30 50]
+MF2='poor':'trapmf',[80 91 120 140]
+MF3='severe':'trapmf',[230 251 300 300]
+MF4='good':'trapmf',[25 31 60 70]
+MF5='medium':'trapmf',[50 61 90 100]
+MF6='very_poor':'trapmf',[110 121 250 280]
+
+[Input4]
+Name='co2'
+Range=[0 2100]
+NumMFs=5
+MF1='excellent':'trapmf',[-2.49 -2.49 598 700]
+MF2='good':'trapmf',[600 700 800 900]
+MF3='poor':'trapmf',[1000 1100 1500 1600]
+MF4='medium':'trapmf',[800 900 1000 1100]
+MF5='very_poor':'trapmf',[1500 1600 2100 2100]
+
+[Input5]
+Name='t_voc'
+Range=[0 13]
+NumMFs=5
+MF1='excellent':'trapmf',[0 0 0.3 0.4]
+MF2='good':'trapmf',[0.2 0.3 1 1.2]
+MF3='medium':'trapmf',[0.8 1 3 3.2]
+MF4='poor':'trapmf',[2.8 3 10 10.2]
+MF5='very_poor':'trapmf',[9.8 10 13 13]
+
+[Input6]
+Name='time_of_day'
+Range=[0 24]
+NumMFs=3
+MF1='morning':'trapmf',[0 0 4 7]
+MF2='day_time':'trapmf',[6 7 18 19]
+MF3='evening':'trapmf',[17.74 19.83 24 24]
+
+[Output1]
+Name='windows'
+Range=[0 100]
+NumMFs=3
+MF1='small':'trapmf',[0 0 10 25]
+MF2='medium':'trapmf',[15 30 50 65]
+MF3='large':'trapmf',[55 70 100 100]
+
+[Output2]
+Name='heater'
+Range=[0 2000]
+NumMFs=5
+MF1='very_low':'trapmf',[0 0 97.5 402.6]
+MF2='low':'trapmf',[99.7 404.8 599.8 905]
+MF3='medium':'trapmf',[597.4 902.4 1098 1403]
+MF4='high':'trapmf',[1097 1402 1598 1903]
+MF5='very_high':'trapmf',[1597 1902 2098 2402]
+
+[Output3]
+Name='dehumidifier'
+Range=[0 100]
+NumMFs=5
+MF1='very_low':'trapmf',[0 0 4.875 20.13]
+MF2='low':'trapmf',[4.985 20.24 29.99 45.25]
+MF3='medium':'trapmf',[29.87 45.12 54.88 70.13]
+MF4='high':'trapmf',[54.87 70.12 79.88 95.13]
+MF5='very_high':'trapmf',[83.98 91 106.9 113.9]
+
+[Output4]
+Name='air_purifier'
+Range=[0 100]
+NumMFs=5
+MF1='very_low':'trapmf',[0 0 4.875 20.13]
+MF2='low':'trapmf',[4.867 20.12 29.88 45.13]
+MF3='medium':'trapmf',[29.87 45.12 54.88 70.13]
+MF4='high':'trapmf',[54.87 70.12 79.88 95.13]
+MF5='very_high':'trapmf',[79.87 95.12 104.9 120.1]
+
+[Rules]
+1 0 0 0 0 0, 1 5 0 0 (1) : 1
+4 0 0 0 0 0, 1 4 0 0 (1) : 1
+3 0 0 0 0 2, 3 1 0 0 (1) : 1
+3 0 0 0 0 1, 2 1 0 0 (1) : 1
+3 0 0 0 0 3, 2 1 0 0 (1) : 1
+2 0 0 0 0 2, 2 2 0 0 (1) : 1
+0 1 0 0 0 0, 0 0 1 0 (1) : 1
+0 2 0 0 0 0, 0 0 3 0 (1) : 1
+0 3 0 0 0 0, 2 0 5 0 (1) : 1
+0 0 1 1 1 0, 0 0 0 1 (1) : 2
+0 0 4 2 2 0, 0 0 0 2 (1) : 2
+0 0 5 4 3 0, 0 0 0 3 (1) : 2
+0 0 2 3 4 0, 0 0 0 4 (1) : 2
+0 0 6 5 5 0, 0 0 0 5 (1) : 2
+0 0 3 0 0 0, 0 0 0 5 (1) : 2
+2 0 0 0 0 1, 1 2 0 0 (1) : 1
+2 0 0 0 0 3, 1 2 0 0 (1) : 1
